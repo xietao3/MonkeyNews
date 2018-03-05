@@ -10,14 +10,12 @@
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
     TabBarIOS,
-    View,
-    Text
 } from 'react-native';
-// import MKText from '../Config/MKText';
-// import MKColor from '../Config/MKColor'
 
+import MKHomePage from './Home/MKHomePage'
+import MKCategoryPage from './Category/MKCategoryPage'
+import MKUserCenterPage from './UserCenter/MKUserCenterPage'
 
 const tabBarConfig = {
     home: {
@@ -35,9 +33,9 @@ const tabBarConfig = {
         icon:require('../../src/home.png'),
         selected:'UserTab'
     }
-}
+};
 
-export default class App extends Component {
+export default class MKTabBar extends Component {
 
     constructor (props) {
         super(props);
@@ -45,15 +43,6 @@ export default class App extends Component {
             selectedTab: tabBarConfig.home.selected
         };
 
-    }
-
-    _renderContent (color: string, pageText: string) {
-        return (
-            <View style={[styles.tabContent, {backgroundColor:color}]}>
-            <Text style={styles.tabText}>{pageText}</Text>
-            {/*<Text style={styles.tabText}>{num} re-renders of the {pageText}</Text>*/}
-            </View>
-        );
     }
 
     _renderTabBarItem(tabBarConfigItem, page) {
@@ -77,29 +66,12 @@ export default class App extends Component {
     render() {
         return (
            <TabBarIOS>
-               {this._renderTabBarItem(tabBarConfig.home, (
-                   <View style={[styles.tabContent, {backgroundColor:'#ff0000'}]}>
-                       <Text style={styles.tabText}>diddsdasds</Text>
-                   </View>
-               ))}
-
-
-               {/*{this._renderTabBarItem(tabBarConfig.home, this._renderContent("#ff0000","home"))}*/}
-               {this._renderTabBarItem(tabBarConfig.category, this._renderContent("#00ff00","分类页面"))}
-               {this._renderTabBarItem(tabBarConfig.user, this._renderContent("#ff00ff","个人中心页面"))}
+               {this._renderTabBarItem(tabBarConfig.home, (<MKHomePage/>))}
+               {this._renderTabBarItem(tabBarConfig.category, (<MKCategoryPage/>))}
+               {this._renderTabBarItem(tabBarConfig.user, (<MKUserCenterPage/>))}
            </TabBarIOS>
         );
 
     }
 }
 
-const styles = StyleSheet.create({
-    tabContent: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    tabText: {
-        color: 'white',
-        margin: 50,
-    },
-});
