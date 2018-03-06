@@ -33,10 +33,9 @@ export default class MKUserCenterPage extends MKBasePage {
     }
 
     render () {
-        return (
-            <View style={[commonStyles.container, {backgroundColor:"#ff0000"}]}>
-                <Text style={[{color:"white"},{marginTop:100}]}>个人中心页面 </Text>
-            </View>
+        return super.render(
+            <Text style={[{color:"black"},{marginTop:100}]}>个人中心页面 </Text>
+
         );
     }
 

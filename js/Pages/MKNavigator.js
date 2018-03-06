@@ -13,40 +13,41 @@ import {StackNavigator} from 'react-navigation'
 import MKHomePage from './Home/MKHomePage'
 import MKCategoryPage from './Category/MKCategoryPage'
 import MKUserCenterPage from './UserCenter/MKUserCenterPage'
+import MKNewsDetailPage from './Category/MKNewsDetailPage'
 
+/**
+ *页面列表
+ */
+const PageList = {
+    home: { screen: MKHomePage },
+    newsDetail: { screen: MKNewsDetailPage },
+    category: { screen: MKCategoryPage },
+    userCenter: { screen: MKUserCenterPage },
+}
 
-const HomeNavigator = StackNavigator (
-    {
-        home: {
-            screen: MKHomePage,
-        },
-        category: {
-            screen: MKCategoryPage,
-        },
-        userCenter: {
-            screen: MKUserCenterPage,
-        }
-
-    },
-    {
-        initialRouteName :'home'
+/**
+ * 导航条配置
+ */
+const NavigatorConfig = (rootName:string) => {
+    return {
+        initialRouteName :rootName
     }
-);
+};
 
-const CategoryNavigator = StackNavigator ({
-    category: {
-        screen: MKCategoryPage,
-    },
-}, {
-    initialRouteName :'category'
-});
+/**
+ * 首页导航
+ */
+export const HomeNavigator = StackNavigator (PageList, NavigatorConfig('home'));
 
-const UserCenterNavigator = StackNavigator ({
-    userCenter: {
-        screen: MKUserCenterPage,
-    }
-}, {
-    initialRouteName :'userCenter'
-});
 
-export default { HomeNavigator, CategoryNavigator, UserCenterNavigator }
+/**
+ * 分类导航
+ */
+export const CategoryNavigator = StackNavigator (PageList, NavigatorConfig('category'));
+
+
+/**
+ * 个人中心导航
+ */
+export const UserCenterNavigator = StackNavigator (PageList, NavigatorConfig('userCenter'));
+

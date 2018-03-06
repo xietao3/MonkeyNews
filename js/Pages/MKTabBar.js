@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import layout from '../Config/MKLayoutConstants'
-import MKNavigator from './MKNavigator'
+import {HomeNavigator, CategoryNavigator, UserCenterNavigator} from './MKNavigator'
 
 const tabBarConfig = {
     home: {
@@ -66,9 +66,9 @@ export default class MKTabBar extends Component {
     render() {
         return (
            <TabBarIOS>
-               {this._renderTabBarItem(tabBarConfig.home, (<MKNavigator.HomeNavigator />))}
-               {this._renderTabBarItem(tabBarConfig.category, (<MKNavigator.CategoryNavigator />))}
-               {this._renderTabBarItem(tabBarConfig.user, (<MKNavigator.UserCenterNavigator />))}
+               {this._renderTabBarItem(tabBarConfig.home, (<HomeNavigator />))}
+               {this._renderTabBarItem(tabBarConfig.category, (<CategoryNavigator />))}
+               {this._renderTabBarItem(tabBarConfig.user, (<UserCenterNavigator />))}
            </TabBarIOS>
         );
 

@@ -27,6 +27,7 @@ export const colors = {
     black: '#586872',
     blue: '#4078c0',
     white: "white",
+    pageBackgroundColor: '#ffffff'
 };
 
 export const tabBarHeight=49;

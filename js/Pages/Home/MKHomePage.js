@@ -32,12 +32,12 @@ export default class MKHomePage extends MKBasePage {
     }
 
     render () {
-        return (
-            <View style={[{flex:1}, {backgroundColor:"#ff0000"},{flexDirection:'column-reverse'}]}>
-                <Text style={[{color:"white"},{marginBottom:0}]}
-                      onPress={() => alert('gogogo')}
-                >首页热点 </Text>
-            </View>
+        return super.render(
+            <Text style={[{color:"black"},{marginBottom:0}]}
+                  onPress={() => {
+                      this.props.navigation.navigate('newsDetail')
+                  }}
+            >首页热点 </Text>
         );
     }
 

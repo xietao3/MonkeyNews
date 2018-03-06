@@ -19,26 +19,24 @@ import MKBasePage from '../MKBasePage'
 import commonStyles from '../../Styles/commonStyles'
 
 export default class MKCategoryPage extends MKBasePage {
-    static navigationOptions = ({ navigation }) => {
-        const { params } = navigation.state;
+    static navigationOptions = ({navigation}) => {
+        const {params} = navigation.state;
 
         return {
             headerTitle: '分类',
         };
     };
 
-    constructor (props) {
+    constructor(props) {
         super(props)
     }
 
-    render () {
-        return (
-            <View style={[commonStyles.container, {backgroundColor:"#ff0000"}]}>
-                <Text style={[{color:"white"},{marginTop:100}]}> 知识分类</Text>
-            </View>
+    render() {
+        return super.render(
+            <Text style={[{color:"black"},{marginTop:100}]}> 知识分类</Text>
         );
-    }
 
+    }
 }
 
 const styles = StyleSheet.create({
