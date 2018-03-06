@@ -19,6 +19,13 @@ import MKBasePage from '../MKBasePage'
 import commonStyles from '../../Styles/commonStyles'
 
 export default class MKHomePage extends MKBasePage {
+    static navigationOptions = ({ navigation }) => {
+        const { params } = navigation.state;
+
+        return {
+            headerTitle: '热点',
+        };
+    };
 
     constructor (props) {
         super(props)
@@ -26,8 +33,10 @@ export default class MKHomePage extends MKBasePage {
 
     render () {
         return (
-            <View style={[commonStyles.container, {backgroundColor:"#ff0000"}]}>
-                <Text style={[{color:"white"},{marginTop:100}]}>首页热点 </Text>
+            <View style={[{flex:1}, {backgroundColor:"#ff0000"},{flexDirection:'column-reverse'}]}>
+                <Text style={[{color:"white"},{marginBottom:0}]}
+                      onPress={() => alert('gogogo')}
+                >首页热点 </Text>
             </View>
         );
     }

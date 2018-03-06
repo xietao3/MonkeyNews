@@ -13,9 +13,8 @@ import {
     TabBarIOS,
 } from 'react-native';
 
-import MKHomePage from './Home/MKHomePage'
-import MKCategoryPage from './Category/MKCategoryPage'
-import MKUserCenterPage from './UserCenter/MKUserCenterPage'
+import layout from '../Config/MKLayoutConstants'
+import MKNavigator from './MKNavigator'
 
 const tabBarConfig = {
     home: {
@@ -48,6 +47,7 @@ export default class MKTabBar extends Component {
     _renderTabBarItem(tabBarConfigItem, page) {
         return (
             <TabBarIOS.Item
+                style={{marginBottom:layout.tabBarHeight}}
                 title={tabBarConfigItem.name}
                 icon={tabBarConfigItem.icon}
                 selected={this.state.selectedTab === tabBarConfigItem.selected}
@@ -66,9 +66,9 @@ export default class MKTabBar extends Component {
     render() {
         return (
            <TabBarIOS>
-               {this._renderTabBarItem(tabBarConfig.home, (<MKHomePage/>))}
-               {this._renderTabBarItem(tabBarConfig.category, (<MKCategoryPage/>))}
-               {this._renderTabBarItem(tabBarConfig.user, (<MKUserCenterPage/>))}
+               {this._renderTabBarItem(tabBarConfig.home, (<MKNavigator.HomeNavigator />))}
+               {this._renderTabBarItem(tabBarConfig.category, (<MKNavigator.CategoryNavigator />))}
+               {this._renderTabBarItem(tabBarConfig.user, (<MKNavigator.UserCenterNavigator />))}
            </TabBarIOS>
         );
 

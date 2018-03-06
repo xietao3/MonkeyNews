@@ -29,6 +29,8 @@ export const colors = {
     white: "white",
 };
 
+export const tabBarHeight=49;
+
 const commonStyles = StyleSheet.create({
     container: {
         flex: 1,
