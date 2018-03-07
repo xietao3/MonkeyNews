@@ -23,14 +23,17 @@ const PageList = {
     newsDetail: { screen: MKNewsDetailPage },
     category: { screen: MKCategoryPage },
     userCenter: { screen: MKUserCenterPage },
-}
+};
 
 /**
  * 导航条配置
  */
 const NavigatorConfig = (rootName:string) => {
     return {
-        initialRouteName :rootName
+        initialRouteName :rootName,
+        navigationOptions: {
+            headerBackTitle :null,
+        },
     }
 };
 

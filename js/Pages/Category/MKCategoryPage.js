@@ -11,20 +11,15 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    View,
     Text
 } from 'react-native'
 
 import MKBasePage from '../MKBasePage'
-import commonStyles from '../../Styles/commonStyles'
+import commonStyles, {colors} from '../../Styles/commonStyles'
 
 export default class MKCategoryPage extends MKBasePage {
-    static navigationOptions = ({navigation}) => {
-        const {params} = navigation.state;
-
-        return {
-            headerTitle: '分类',
-        };
+    static navigationOptions = {
+        headerTitle: '分类'
     };
 
     constructor(props) {
@@ -33,7 +28,7 @@ export default class MKCategoryPage extends MKBasePage {
 
     render() {
         return super.render(
-            <Text style={[{color:"black"},{marginTop:100}]}> 知识分类</Text>
+            <Text style={[colors.black,{marginTop:100}]}> 知识分类</Text>
         );
 
     }

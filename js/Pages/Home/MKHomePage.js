@@ -16,19 +16,16 @@ import {
 } from 'react-native'
 
 import MKBasePage from '../MKBasePage'
-import commonStyles from '../../Styles/commonStyles'
+import commonStyles from '../../Styles/commonStyles';
 
 export default class MKHomePage extends MKBasePage {
-    static navigationOptions = ({ navigation }) => {
-        const { params } = navigation.state;
-
-        return {
-            headerTitle: '热点',
-        };
+    static navigationOptions = {
+        headerTitle: '热点',
     };
 
     constructor (props) {
         super(props)
+
     }
 
     render () {

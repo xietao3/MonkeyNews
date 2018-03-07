@@ -30,8 +30,6 @@ export const colors = {
     pageBackgroundColor: '#ffffff'
 };
 
-export const tabBarHeight=49;
-
 const commonStyles = StyleSheet.create({
     container: {
         flex: 1,
