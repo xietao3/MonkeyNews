@@ -1,3 +1,9 @@
 {
-  "presets": ["react-native"]
+  "presets": ["react-native"],
+  "plugins": [["import", { "libraryName": "antd-mobile" }]],
+  "env": {
+    "development": {
+      "plugins": ["transform-react-jsx-source"]
+    }
+  }
 }
