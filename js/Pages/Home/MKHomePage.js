@@ -11,35 +11,70 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    View,
-    Text
+    FlatList,
 } from 'react-native'
 
 import MKBasePage from '../MKBasePage'
-import commonStyles from '../../Styles/commonStyles';
+import ListItem from './MKNewsListItem'
 
 export default class MKHomePage extends MKBasePage {
     static navigationOptions = {
         headerTitle: '热点',
     };
-
     constructor (props) {
-        super(props)
+        super(props);
+        this.state = {
+            selected: (new Map(): Map<string, boolean>),
+            data: [
+                {title:'12345',
+                    id:1},
+                {title:'xietao3',
+                    id:2},
+                {title:'xietao4',
+                    id:3},
+                {title:'xietao5',
+                    id:4},
+                {title:'xietao6',
+                    id:5},
+                {title:'xietao7',
+                    id:6},
+            ]
 
-    }
+        }
+    };
+
+    _keyExtractor = (item, index) => item.id;
+
+    _renderItem ({item}) {
+        return (
+            <ListItem
+                id={item.id}
+                onPressItem={(title) => {
+                    alert('click ite'+title);
+                }}
+                selected={!!this.state.selected.get(item.id)}
+                title={item.title}
+            />
+        );
+    };
 
     render () {
         return super.render(
-            <Text style={[{color:"black"},{marginBottom:0}]}
-                  onPress={() => {
-                      this.props.navigation.navigate('newsDetail')
-                  }}
-            >首页热点 </Text>
+            <FlatList
+                style={[styles.container]}
+                data={this.state.data}
+                extraData={this.state}
+                keyExtractor={this._keyExtractor}
+                renderItem={this._renderItem.bind(this)}
+            />
         );
-    }
+    };
 
 }
 
 const styles = StyleSheet.create({
+    listView: {
+        flex:1,
 
+    }
 });

@@ -13,7 +13,7 @@ import {
     TabBarIOS,
 } from 'react-native';
 
-import layout from '../Config/MKLayoutConstants'
+import {layout} from '../Config/MKConstants'
 import {HomeNavigator, CategoryNavigator, UserCenterNavigator} from './MKNavigator'
 
 const tabBarConfig = {

@@ -27,14 +27,13 @@ export const colors = {
     black: '#586872',
     blue: '#4078c0',
     white: "white",
-    pageBackgroundColor: '#ffffff'
+    pageBackgroundColor: '#ffffff',
+    bottomLineColor:'#bfbfbf',
 };
 
 const commonStyles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     shadowLine: {
         shadowColor: '#999999',

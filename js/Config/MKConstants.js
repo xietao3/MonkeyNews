@@ -13,7 +13,7 @@ import React, {Component} from 'react';
 
 const layout = {
     tabBarHeight:49,
-
+    bottomLineHeight:0.5,
 };
 
-export default layout
+export {layout}
