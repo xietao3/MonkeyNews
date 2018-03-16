@@ -16,6 +16,7 @@ import {
 
 import MKBasePage from '../MKBasePage'
 import ListItem from './MKNewsListItem'
+import MKServices from '../../Services/MKServices'
 
 export default class MKHomePage extends MKBasePage {
     static navigationOptions = {
@@ -43,7 +44,21 @@ export default class MKHomePage extends MKBasePage {
         }
     };
 
-    _keyExtractor = (item, index) => item.id;
+    componentDidMount() {
+        console.log('did mount');
+        MKServices.requestHomeList().then((responseData) => {
+            console.log(responseData);
+            this.setState(() => {
+                return {
+                    data: responseData.stories,
+                }
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    _keyExtractor = (item, index) => item.id+'';
 
     _renderItem ({item}) {
         return (
@@ -61,7 +76,7 @@ export default class MKHomePage extends MKBasePage {
     render () {
         return super.render(
             <FlatList
-                style={[styles.container]}
+                style={[styles.listView]}
                 data={this.state.data}
                 extraData={this.state}
                 keyExtractor={this._keyExtractor}
