@@ -24,12 +24,12 @@ const tabBarConfig = {
     },
     category: {
         name:"分类",
-        icon:require('../../src/home.png'),
+        icon:require('../../src/category.png'),
         selected:'CategoryTab'
     },
     user: {
         name:"个人中心",
-        icon:require('../../src/home.png'),
+        icon:require('../../src/usercenter.png'),
         selected:'UserTab'
     }
 };

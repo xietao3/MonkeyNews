@@ -24,7 +24,7 @@ export class Line extends Component {
     }
 
     render () {
-        if (this.props && this.props.xietao) {
+        if (this.props && this.props.hidden) {
             return null;
         }
         return (

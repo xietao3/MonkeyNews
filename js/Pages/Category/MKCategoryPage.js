@@ -28,7 +28,7 @@ export default class MKCategoryPage extends MKBasePage {
 
     render() {
         return super.render(
-            <Text style={[colors.black,{marginTop:100}]}> 知识分类</Text>
+            <Text style={[{marginTop:100}]}> 知识分类</Text>
         );
 
     }
