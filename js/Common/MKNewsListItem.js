@@ -21,15 +21,29 @@ import {Line} from './MKCommonComponents';
 export default class MKNewsListItem extends Component {
     constructor (props) {
         super(props);
+        this.state = {
+            imageLoading:true
+        }
     }
 
     _clickItem = () => {
         this.props.onPressItem(this.props.title);
     };
 
+    _renderPlaceholder() {
+        if (this.state.imageLoading === true) {
+            return(
+                <Text style={styles.placeholder}>
+                    loading...
+                </Text>
+            );
+        }else {
+            return null;
+        }
+
+    }
+
     render() {
-        const imageUri = this.props.images;
-        console.log('xietao3'+imageUri);
         return (
 
             <TouchableWithoutFeedback
@@ -39,23 +53,23 @@ export default class MKNewsListItem extends Component {
                     <View style={styles.item}>
 
                         <Text style={styles.title}>
-                            {this.props.title}
+                            {this.props.item.title}
                         </Text>
 
                         <ImageBackground
-                            source={{uri:imageUri}}
+                            source={{uri:this.props.item.images[0]}}
                             style={styles.image}
+                            onLoad={() => {
+                                this.setState({imageLoading: false});
+                            }}
                         >
-                            <Text style={styles.placeholder}>
-                                loading...
-                            </Text>
+                            {this._renderPlaceholder()}
                         </ImageBackground>
                     </View>
                     <Line
                         hidden={this.props.id===6}
                     />
                 </View>
-
 
             </TouchableWithoutFeedback>
 

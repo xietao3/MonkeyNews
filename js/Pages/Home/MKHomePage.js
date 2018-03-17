@@ -12,7 +12,6 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     FlatList,
-    View,
 } from 'react-native'
 
 import MKBasePage from '../MKBasePage'
@@ -39,11 +38,7 @@ export default class MKHomePage extends MKBasePage {
     componentDidMount() {
         MKServices.requestHomeList().then((responseData) => {
             console.log(responseData);
-            this.setState(() => {
-                return {
-                    data: responseData.stories,
-                }
-            });
+            this.setState({data: responseData.stories,});
         }).catch((error) => {
             console.log(error);
         });
@@ -61,6 +56,7 @@ export default class MKHomePage extends MKBasePage {
                 }}
                 selected={!!this.state.selected.get(item.id)}
                 title={item.title}
+                item={item}
             />
         );
     }
