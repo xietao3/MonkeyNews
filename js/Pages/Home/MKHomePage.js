@@ -6,6 +6,7 @@
  * blog: xietao3.com
  */
 
+
 'use strict';
 
 import React, {Component} from 'react';
@@ -17,6 +18,8 @@ import {
 import MKBasePage from '../MKBasePage'
 import ListItem from '../../Common/MKNewsListItem'
 import MKServices from '../../Services/MKServices'
+import MKSwiper from '../../Common/MKSwiper'
+import {layout} from "../../Config/MKConstants";
 
 export default class MKHomePage extends MKBasePage {
     static navigationOptions = {
@@ -37,7 +40,6 @@ export default class MKHomePage extends MKBasePage {
 
     componentDidMount() {
         MKServices.requestHomeList().then((responseData) => {
-            console.log(responseData);
             this.setState({data: responseData.stories,});
         }).catch((error) => {
             console.log(error);
@@ -45,6 +47,12 @@ export default class MKHomePage extends MKBasePage {
     }
 
     _keyExtractor = (item, index) => item.id+'';
+
+    _renderHeader() {
+        return (
+            <MKSwiper />
+        );
+    }
 
     _renderItem ({item}) {
 
@@ -68,6 +76,7 @@ export default class MKHomePage extends MKBasePage {
                 data={this.state.data}
                 extraData={this.state}
                 keyExtractor={this._keyExtractor}
+                ListHeaderComponent={this._renderHeader()}
                 renderItem={this._renderItem.bind(this)}
             />
         );

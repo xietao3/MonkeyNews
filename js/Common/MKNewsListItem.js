@@ -17,6 +17,7 @@ import {
     ImageBackground,
 } from 'react-native';
 import {Line} from './MKCommonComponents';
+import MKImagePlacehoulder from './MKImagePlaceholder'
 
 export default class MKNewsListItem extends Component {
     constructor (props) {
@@ -29,19 +30,6 @@ export default class MKNewsListItem extends Component {
     _clickItem = () => {
         this.props.onPressItem(this.props.title);
     };
-
-    _renderPlaceholder() {
-        if (this.state.imageLoading === true) {
-            return(
-                <Text style={styles.placeholder}>
-                    loading...
-                </Text>
-            );
-        }else {
-            return null;
-        }
-
-    }
 
     render() {
         return (
@@ -63,7 +51,9 @@ export default class MKNewsListItem extends Component {
                                 this.setState({imageLoading: false});
                             }}
                         >
-                            {this._renderPlaceholder()}
+                            <MKImagePlacehoulder
+                                finished={!this.state.imageLoading}
+                            />
                         </ImageBackground>
                     </View>
                     <Line
@@ -103,6 +93,4 @@ const styles = StyleSheet.create({
         height:50,
         backgroundColor:'#bfbfbf',
     },
-    placeholder: {
-    }
 });
