@@ -16,35 +16,38 @@ import {
 import {layout} from '../Config/MKConstants'
 import {HomeNavigator, CategoryNavigator, UserCenterNavigator} from './MKNavigator'
 
-const tabBarConfig = {
-    home: {
+const tabBarConfig = [
+    {
         name:"热点",
         icon:require('../../src/home.png'),
-        selected:'HomeTab'
+        selected:'HomeTab',
+        rootPage:(<HomeNavigator />),
     },
-    category: {
+    {
         name:"分类",
         icon:require('../../src/category.png'),
-        selected:'CategoryTab'
+        selected:'CategoryTab',
+        rootPage:(<CategoryNavigator />),
     },
-    user: {
+    {
         name:"个人中心",
         icon:require('../../src/usercenter.png'),
-        selected:'UserTab'
+        selected:'UserTab',
+        rootPage:(<UserCenterNavigator />),
     }
-};
+];
 
 export default class MKTabBar extends Component {
 
     constructor (props) {
         super(props);
         this.state = {
-            selectedTab: tabBarConfig.home.selected
+            selectedTab: tabBarConfig[0].selected
         };
 
     }
 
-    _renderTabBarItem(tabBarConfigItem, page) {
+    _renderTabBarItem(tabBarConfigItem) {
         return (
             <TabBarIOS.Item
                 style={{marginBottom:layout.tabBarHeight}}
@@ -57,7 +60,7 @@ export default class MKTabBar extends Component {
                     });
                 }}
             >
-                {page}
+                {tabBarConfigItem.rootPage}
             </TabBarIOS.Item>
         );
     }
@@ -66,9 +69,9 @@ export default class MKTabBar extends Component {
     render() {
         return (
            <TabBarIOS>
-               {this._renderTabBarItem(tabBarConfig.home, (<HomeNavigator />))}
-               {this._renderTabBarItem(tabBarConfig.category, (<CategoryNavigator />))}
-               {this._renderTabBarItem(tabBarConfig.user, (<UserCenterNavigator />))}
+               {
+                   tabBarConfig.map((tabBarItem) => this._renderTabBarItem(tabBarItem))
+               }
            </TabBarIOS>
         );
 
