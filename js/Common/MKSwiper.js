@@ -17,6 +17,7 @@ import {
     Dimensions,
 } from 'react-native';
 import {layout, intervalTime} from "../Config/MKConstants";
+import MKImage from './MKImage'
 
 const { screenWidth } = Dimensions.get('window');
 // const loading = require('./img/loading.gif');
@@ -24,14 +25,11 @@ const { screenWidth } = Dimensions.get('window');
 const Slide = props => {
     return (
         <View style={styles.slide}>
-            <Image onLoad={props.loadHandle.bind(null, props.i)}
-                   style={styles.image}
-                   source={{uri: props.uri}}
-                   resizeMode={Image.resizeMode.center}
+            <MKImage
+                onLoad={props.loadHandle.bind(null, props.i)}
+                style={styles.image}
+                source={{uri: props.uri}}
             />
-            {/*{!props.loaded && <View style={styles.loadingView}>*/}
-                {/*<Image style={styles.loadingImage} source={loading} />*/}
-            }
         </View>
     )
 };

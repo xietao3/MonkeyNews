@@ -23,10 +23,12 @@ export  default class extends Component {
             return null;
         }else {
             return (
-                <Text>
+                <Text {...this.props}>
                     loading...
                 </Text>
             );
         }
     }
 }
+
+

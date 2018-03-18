@@ -14,10 +14,9 @@ import {
     View,
     Text,
     TouchableWithoutFeedback,
-    ImageBackground,
 } from 'react-native';
 import {Line} from './MKCommonComponents';
-import MKImagePlacehoulder from './MKImagePlaceholder'
+import MKImage from './MKImage'
 
 export default class MKNewsListItem extends Component {
     constructor (props) {
@@ -44,20 +43,12 @@ export default class MKNewsListItem extends Component {
                             {this.props.item.title}
                         </Text>
 
-                        <ImageBackground
+                        <MKImage
                             source={{uri:this.props.item.images[0]}}
                             style={styles.image}
-                            onLoad={() => {
-                                this.setState({imageLoading: false});
-                            }}
-                        >
-                            <MKImagePlacehoulder
-                                finished={!this.state.imageLoading}
-                            />
-                        </ImageBackground>
+                        />
                     </View>
                     <Line
-                        hidden={this.props.id===6}
                     />
                 </View>
 
@@ -83,8 +74,6 @@ const styles = StyleSheet.create({
         marginBottom:10,
     },
     image: {
-        justifyContent: 'center',
-        alignItems: 'center',
         marginTop:10,
         marginBottom:10,
         marginRight:10,
