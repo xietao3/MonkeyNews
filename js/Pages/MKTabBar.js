@@ -11,10 +11,12 @@
 import React, { Component } from 'react';
 import {
     TabBarIOS,
+    Image,
 } from 'react-native';
 
 import {layout} from '../Config/MKConstants'
 import {HomeNavigator, CategoryNavigator, UserCenterNavigator} from './MKNavigator'
+import { TabNavigator, TabBarBottom } from 'react-navigation';
 
 const tabBarConfig = [
     {
@@ -37,44 +39,48 @@ const tabBarConfig = [
     }
 ];
 
-export default class MKTabBar extends Component {
+export default TabNavigator(
+    {
+        首页: {
+            screen: HomeNavigator,
+            navigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({ focused, tintColor }) => {
+                    return <Image source={require('../../src/home.png')} />;
+                },
+            })
+        },
+        分类: {
+            screen: CategoryNavigator,
+            navigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({ focused, tintColor }) => {
+                    return <Image source={require('../../src/category.png')} />;
+                },
+            })
 
-    constructor (props) {
-        super(props);
-        this.state = {
-            selectedTab: tabBarConfig[0].selected
-        };
+        },
+        个人中心: {
+            screen: UserCenterNavigator,
+            navigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({ focused, tintColor }) => {
+                    return <Image source={require('../../src/usercenter.png')} />;
+                },
+            })
+        },
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor }) => {
 
+            },
+        }),
+        tabBarOptions: {
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray',
+        },
+        tabBarComponent: TabBarBottom,
+        tabBarPosition: 'bottom',
+        animationEnabled: false,
+        swipeEnabled: false,
     }
-
-    _renderTabBarItem(tabBarConfigItem) {
-        return (
-            <TabBarIOS.Item
-                style={{marginBottom:layout.tabBarHeight}}
-                title={tabBarConfigItem.name}
-                icon={tabBarConfigItem.icon}
-                selected={this.state.selectedTab === tabBarConfigItem.selected}
-                onPress={() => {
-                    this.setState({
-                        selectedTab: tabBarConfigItem.selected,
-                    });
-                }}
-            >
-                {tabBarConfigItem.rootPage}
-            </TabBarIOS.Item>
-        );
-    }
-
-
-    render() {
-        return (
-           <TabBarIOS>
-               {
-                   tabBarConfig.map((tabBarItem) => this._renderTabBarItem(tabBarItem))
-               }
-           </TabBarIOS>
-        );
-
-    }
-}
+);
 
