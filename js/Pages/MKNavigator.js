@@ -33,6 +33,7 @@ const NavigatorConfig = (rootName:string) => {
         initialRouteName :rootName,
         navigationOptions: {
             headerBackTitle :null,
+            headerTintColor: 'tomato',
         },
     }
 };

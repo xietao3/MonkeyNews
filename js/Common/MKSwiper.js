@@ -20,7 +20,6 @@ import {layout, intervalTime} from "../Config/MKConstants";
 import MKImage from './MKImage'
 
 const { screenWidth } = Dimensions.get('window');
-// const loading = require('./img/loading.gif');
 
 const Slide = props => {
     return (

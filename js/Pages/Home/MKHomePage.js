@@ -13,13 +13,13 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     SectionList,
-    Text,
-} from 'react-native'
+} from 'react-native';
 
-import MKBasePage from '../MKBasePage'
-import ListItem from '../../Common/MKNewsListItem'
-import MKServices from '../../Services/MKServices'
-import MKSwiper from '../../Common/MKSwiper'
+import MKBasePage from '../MKBasePage';
+import ListItem from '../../Common/MKNewsListItem';
+import MKNewsSection from '../../Common/MKNewsSection';
+import MKServices from '../../Services/MKServices';
+import MKSwiper from '../../Common/MKSwiper';
 // import {layout} from "../../Config/MKConstants";
 
 export default class MKHomePage extends MKBasePage {
@@ -31,39 +31,49 @@ export default class MKHomePage extends MKBasePage {
         this.state = {
             sections:[],
             rotations:[],
+            lastDate:0,
+            refreshing:false,
         }
     };
 
     componentDidMount() {
         this._getNewestNews();
-    }
+    };
 
     _getNewestNews() {
-        MKServices.requestHomeList().then((responseData) => {
-            let tempData = this.state.sections;
-            tempData = [{
+        this.setState({refreshing: true,});
+
+        MKServices.requestNewestNews().then((responseData) => {
+            let tempData = [{
                 key:100,
                 data:responseData.stories
             }];
             this.setState({
                 sections: tempData,
                 rotations: responseData.top_stories,
+                lastDate: responseData.date,
+                refreshing: false,
             });
         }).catch((error) => {
             console.log(error);
         });
-    }
+    };
 
+    _getMoreNews() {
 
-    _renderSection = (info) => {
-        let date = info.section.key;
-        if (date !== 100) {
-            return <Text
-                style={{ height: 20, textAlign: 'center', textAlignVertical: 'center', backgroundColor: '#9CEBBC', color: 'white', fontSize: 30 }}>{txt}</Text>
-        }else {
-            return null;
-        }
-
+        MKServices.requestBeforeNews(this.state.lastDate).then((responseData) => {
+            let tempData = this.state.sections;
+            tempData.push({
+                key:responseData.date,
+                data:responseData.stories
+            });
+            this.setState({
+                sections: tempData,
+                lastDate: responseData.date,
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
     };
 
     _renderItem ({item}) {
@@ -77,19 +87,23 @@ export default class MKHomePage extends MKBasePage {
                 item={item}
             />
         );
-    }
+    };
 
 
     render () {
         if (this.state.sections.length > 0) {
             return super.render(
                 <SectionList
-                    renderSectionHeader={this._renderSection}
+                    renderSectionHeader={(info)=>{return(<MKNewsSection section={info.section} />)}}
                     style={[styles.listView]}
                     sections={this.state.sections}
                     ListHeaderComponent={(<MKSwiper stories={this.state.rotations} />)}
                     renderItem={this._renderItem.bind(this)}
                     keyExtractor={(item)=>{return(item.id+'')}}
+                    onEndReachedThreshold={0.1}
+                    onEndReached={this._getMoreNews.bind(this)}
+                    onRefresh={this._getNewestNews.bind(this)}
+                    refreshing= {this.state.refreshing}
                 />
             );
 
@@ -104,5 +118,6 @@ export default class MKHomePage extends MKBasePage {
 const styles = StyleSheet.create({
     listView: {
         flex:1,
-    }
+    },
+
 });

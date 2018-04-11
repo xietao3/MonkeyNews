@@ -13,8 +13,12 @@ import APIConstants from './MKAPIConstants'
 
 export default class MKServices {
 
-    static requestHomeList() {
+    static requestNewestNews() {
         return MKBaseServices.request(APIConstants.latest_news_list_url);
+    }
+
+    static requestBeforeNews(date) {
+        return MKBaseServices.request(APIConstants.news_list_url+date);
     }
 }
 
