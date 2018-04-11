@@ -17,9 +17,11 @@ import {
 
 import MKBasePage from '../MKBasePage';
 import ListItem from '../../Common/MKNewsListItem';
+import {Line} from '../../Common/MKCommonComponents';
 import MKNewsSection from '../../Common/MKNewsSection';
 import MKServices from '../../Services/MKServices';
 import MKSwiper from '../../Common/MKSwiper';
+
 // import {layout} from "../../Config/MKConstants";
 
 export default class MKHomePage extends MKBasePage {
@@ -104,6 +106,8 @@ export default class MKHomePage extends MKBasePage {
                     onEndReached={this._getMoreNews.bind(this)}
                     onRefresh={this._getNewestNews.bind(this)}
                     refreshing= {this.state.refreshing}
+                    stickySectionHeadersEnabled={false}
+                    ItemSeparatorComponent={Line}
                 />
             );
 

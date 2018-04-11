@@ -15,7 +15,6 @@ import {
     Text,
     TouchableWithoutFeedback,
 } from 'react-native';
-import {Line} from './MKCommonComponents';
 import MKImage from './MKImage'
 
 export default class MKNewsListItem extends Component {
@@ -48,8 +47,6 @@ export default class MKNewsListItem extends Component {
                             style={styles.image}
                         />
                     </View>
-                    <Line
-                    />
                 </View>
 
             </TouchableWithoutFeedback>
