@@ -24,7 +24,7 @@ import MKSwiper from '../../Common/MKSwiper'
 
 export default class MKHomePage extends MKBasePage {
     static navigationOptions = {
-        headerTitle: '热点',
+        headerTitle: '今日热点',
     };
     constructor (props) {
         super(props);
@@ -55,13 +55,6 @@ export default class MKHomePage extends MKBasePage {
     }
 
 
-
-    static _renderHeader() {
-        return (
-            <MKSwiper />
-        );
-    }
-
     _renderSection = (info) => {
         let date = info.section.key;
         if (date !== 100) {
@@ -86,7 +79,6 @@ export default class MKHomePage extends MKBasePage {
         );
     }
 
-    _keyExtractor = (item, index) => item.id+'';
 
     render () {
         if (this.state.sections.length > 0) {
@@ -95,9 +87,9 @@ export default class MKHomePage extends MKBasePage {
                     renderSectionHeader={this._renderSection}
                     style={[styles.listView]}
                     sections={this.state.sections}
-                    ListHeaderComponent={MKHomePage._renderHeader()}
+                    ListHeaderComponent={(<MKSwiper stories={this.state.rotations} />)}
                     renderItem={this._renderItem.bind(this)}
-                    keyExtractor={this._keyExtractor}
+                    keyExtractor={(item)=>{return(item.id+'')}}
                 />
             );
 
