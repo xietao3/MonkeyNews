@@ -12,14 +12,15 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    FlatList,
+    SectionList,
+    Text,
 } from 'react-native'
 
 import MKBasePage from '../MKBasePage'
 import ListItem from '../../Common/MKNewsListItem'
 import MKServices from '../../Services/MKServices'
 import MKSwiper from '../../Common/MKSwiper'
-import {layout} from "../../Config/MKConstants";
+// import {layout} from "../../Config/MKConstants";
 
 export default class MKHomePage extends MKBasePage {
     static navigationOptions = {
@@ -28,58 +29,82 @@ export default class MKHomePage extends MKBasePage {
     constructor (props) {
         super(props);
         this.state = {
-            selected: (new Map(): Map<string, boolean>),
-            data: [
-                {title:'12345',
-                    images:['http:www.baidu.com','123'],
-                    id:1}
-            ]
-
+            sections:[],
+            rotations:[],
         }
     };
 
     componentDidMount() {
+        this._getNewestNews();
+    }
+
+    _getNewestNews() {
         MKServices.requestHomeList().then((responseData) => {
-            this.setState({data: responseData.stories,});
+            let tempData = this.state.sections;
+            tempData = [{
+                key:100,
+                data:responseData.stories
+            }];
+            this.setState({
+                sections: tempData,
+                rotations: responseData.top_stories,
+            });
         }).catch((error) => {
             console.log(error);
         });
     }
 
-    _keyExtractor = (item, index) => item.id+'';
 
-    _renderHeader() {
+
+    static _renderHeader() {
         return (
             <MKSwiper />
         );
     }
 
-    _renderItem ({item}) {
+    _renderSection = (info) => {
+        let date = info.section.key;
+        if (date !== 100) {
+            return <Text
+                style={{ height: 20, textAlign: 'center', textAlignVertical: 'center', backgroundColor: '#9CEBBC', color: 'white', fontSize: 30 }}>{txt}</Text>
+        }else {
+            return null;
+        }
 
+    };
+
+    _renderItem ({item}) {
         return (
             <ListItem
                 id={item.id}
                 onPressItem={(title) => {
                     alert('click ite'+title);
                 }}
-                selected={!!this.state.selected.get(item.id)}
                 title={item.title}
                 item={item}
             />
         );
     }
 
+    _keyExtractor = (item, index) => item.id+'';
+
     render () {
-        return super.render(
-            <FlatList
-                style={[styles.listView]}
-                data={this.state.data}
-                extraData={this.state}
-                keyExtractor={this._keyExtractor}
-                ListHeaderComponent={this._renderHeader()}
-                renderItem={this._renderItem.bind(this)}
-            />
-        );
+        if (this.state.sections.length > 0) {
+            return super.render(
+                <SectionList
+                    renderSectionHeader={this._renderSection}
+                    style={[styles.listView]}
+                    sections={this.state.sections}
+                    ListHeaderComponent={MKHomePage._renderHeader()}
+                    renderItem={this._renderItem.bind(this)}
+                    keyExtractor={this._keyExtractor}
+                />
+            );
+
+        }else {
+            return null;
+        }
+
     };
 
 }
