@@ -21,6 +21,7 @@ import {Line} from '../../Common/MKCommonComponents';
 import MKNewsSection from '../../Common/MKNewsSection';
 import MKServices from '../../Services/MKServices';
 import MKSwiper from '../../Common/MKSwiper';
+import MKPlaceholderView from '../../Common/MKPlaceholderView'
 
 // import {layout} from "../../Config/MKConstants";
 
@@ -30,6 +31,7 @@ export default class MKHomePage extends MKBasePage {
     };
     constructor (props) {
         super(props);
+        this.state = {...super.state};
         this.state = {
             sections:[],
             rotations:[],
@@ -39,11 +41,14 @@ export default class MKHomePage extends MKBasePage {
     };
 
     componentDidMount() {
-        this._getNewestNews();
+        this.getNewestNews();
     };
 
-    _getNewestNews() {
-        this.setState({refreshing: true,});
+    getNewestNews() {
+        this.startLoading();
+        this.setState({
+            refreshing: true,
+        });
 
         MKServices.requestNewestNews().then((responseData) => {
             let tempData = [{
@@ -56,14 +61,18 @@ export default class MKHomePage extends MKBasePage {
                 lastDate: responseData.date,
                 refreshing: false,
             });
+            this.stopLoading();
+
         }).catch((error) => {
+            this.requestFailure();
             console.log(error);
         });
     };
 
-    _getMoreNews() {
+    getMoreNews() {
 
         MKServices.requestBeforeNews(this.state.lastDate).then((responseData) => {
+
             let tempData = this.state.sections;
             tempData.push({
                 key:responseData.date,
@@ -72,18 +81,19 @@ export default class MKHomePage extends MKBasePage {
             this.setState({
                 sections: tempData,
                 lastDate: responseData.date,
-            });
+            })
         }).catch((error) => {
+
             console.log(error);
         });
     };
 
-    _renderItem ({item}) {
+    renderItem ({item}) {
         return (
             <ListItem
                 id={item.id}
                 onPressItem={(title) => {
-                    alert('click ite'+title);
+
                 }}
                 title={item.title}
                 item={item}
@@ -93,26 +103,33 @@ export default class MKHomePage extends MKBasePage {
 
 
     render () {
-        if (this.state.sections.length > 0) {
+
+        if (!this.state.isLoading) {
             return super.render(
                 <SectionList
-                    renderSectionHeader={(info)=>{return(<MKNewsSection section={info.section} />)}}
+                    renderSectionHeader={(info) => {
+                        return (<MKNewsSection section={info.section}/>)
+                    }}
                     style={[styles.listView]}
                     sections={this.state.sections}
-                    ListHeaderComponent={(<MKSwiper stories={this.state.rotations} />)}
-                    renderItem={this._renderItem.bind(this)}
-                    keyExtractor={(item)=>{return(item.id+'')}}
+                    ListHeaderComponent={(<MKSwiper stories={this.state.rotations}/>)}
+                    renderItem={this.renderItem.bind(this)}
+                    keyExtractor={(item) => {
+                        return (item.id + '')
+                    }}
                     onEndReachedThreshold={0.1}
-                    onEndReached={this._getMoreNews.bind(this)}
-                    onRefresh={this._getNewestNews.bind(this)}
-                    refreshing= {this.state.refreshing}
+                    onEndReached={this.getMoreNews.bind(this)}
+                    onRefresh={this.getNewestNews.bind(this)}
+                    refreshing={this.state.refreshing}
                     stickySectionHeadersEnabled={false}
                     ItemSeparatorComponent={Line}
                 />
             );
 
         }else {
-            return null;
+            return super.render(
+                <MKPlaceholderView isLoading={this.state.isLoading} reloadEvent={this.getNewestNews.bind(this)} />
+            );
         }
 
     };

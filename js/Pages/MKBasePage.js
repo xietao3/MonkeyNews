@@ -13,7 +13,6 @@ import commonStyles, {colors} from '../Styles/commonStyles'
 import {SafeAreaView} from 'react-navigation'
 
 export default class MKBasePage extends Component {
-
     // static navigationOptions = ({ navigation }) => {
     //     const { params } = navigation.state;
     //
@@ -23,9 +22,25 @@ export default class MKBasePage extends Component {
     // };
 
     constructor(props) {
-        super(props)
+        super(props);
 
+        this.state = {
+            isLoading: 1,
+        }
     }
+
+    startLoading() {
+        this.setState({isLoading: 1});
+    }
+
+    stopLoading() {
+        this.setState({isLoading: 0});
+    }
+
+    requestFailure() {
+        this.setState({isLoading: -1});
+    }
+
 
     render(page) {
         return (
