@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     LoadingView: {
         width:100,
         height:100,
-        backgroundColor:"#3a3a3a50",
+        backgroundColor:'#3a3a3aee',
         justifyContent:'center',
         alignItems:'center',
         borderRadius:5,
@@ -46,11 +46,11 @@ const styles = StyleSheet.create({
     Text:{
         position:'absolute',
         bottom:10,
-        color:"#3a3a3a"
+        color:"#dcdcdc"
     }
 });
 
 const LoadingViewConfig = {
-    backgroundColor:'#3a3a3a',
+    backgroundColor:'#dcdcdc',
     text:'loading...',
 };

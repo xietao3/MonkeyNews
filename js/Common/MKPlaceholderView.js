@@ -11,6 +11,7 @@
 import React, {Component} from 'react';
 import {
     Text,
+    Modal,
     View,
     StyleSheet,
     TouchableOpacity,
@@ -28,9 +29,11 @@ export  default class MKPlaceholderView extends Component {
     render() {
         if (this.props.isLoading === 1) {
             return(
-                <View style={styles.container}>
-                    <MKLoadingView/>
-                </View>
+                <Modal transparent={true}>
+                    <View style={styles.container}>
+                        <MKLoadingView/>
+                    </View>
+                </Modal>
             );
         }else if (this.props.isLoading === -1){
             return(
@@ -54,6 +57,7 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:'center',
         alignItems:'center',
+        backgroundColor:'transparent'
     },
 
     Text:{

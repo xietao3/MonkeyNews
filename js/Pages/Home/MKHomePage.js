@@ -13,6 +13,7 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     SectionList,
+    View,
 } from 'react-native';
 
 import MKBasePage from '../MKBasePage';
@@ -21,7 +22,6 @@ import {Line} from '../../Common/MKCommonComponents';
 import MKNewsSection from '../../Common/MKNewsSection';
 import MKServices from '../../Services/MKServices';
 import MKSwiper from '../../Common/MKSwiper';
-import MKPlaceholderView from '../../Common/MKPlaceholderView'
 
 // import {layout} from "../../Config/MKConstants";
 
@@ -31,13 +31,13 @@ export default class MKHomePage extends MKBasePage {
     };
     constructor (props) {
         super(props);
-        this.state = {...super.state};
         this.state = {
             sections:[],
             rotations:[],
             lastDate:0,
             refreshing:false,
-        }
+        };
+
     };
 
     componentDidMount() {
@@ -46,6 +46,7 @@ export default class MKHomePage extends MKBasePage {
 
     getNewestNews() {
         this.startLoading();
+
         this.setState({
             refreshing: true,
         });
@@ -92,10 +93,9 @@ export default class MKHomePage extends MKBasePage {
         return (
             <ListItem
                 id={item.id}
-                onPressItem={(title) => {
-
+                onPressItem={() => {
+                    this.props.navigation.navigate('newsDetail')
                 }}
-                title={item.title}
                 item={item}
             />
         );
@@ -103,35 +103,35 @@ export default class MKHomePage extends MKBasePage {
 
 
     render () {
+        this.setPlaceholderView(this.getNewestNews.bind(this));
 
-        if (!this.state.isLoading) {
+        if (this.state.sections.length > 0) {
             return super.render(
-                <SectionList
-                    renderSectionHeader={(info) => {
-                        return (<MKNewsSection section={info.section}/>)
-                    }}
-                    style={[styles.listView]}
-                    sections={this.state.sections}
-                    ListHeaderComponent={(<MKSwiper stories={this.state.rotations}/>)}
-                    renderItem={this.renderItem.bind(this)}
-                    keyExtractor={(item) => {
-                        return (item.id + '')
-                    }}
-                    onEndReachedThreshold={0.1}
-                    onEndReached={this.getMoreNews.bind(this)}
-                    onRefresh={this.getNewestNews.bind(this)}
-                    refreshing={this.state.refreshing}
-                    stickySectionHeadersEnabled={false}
-                    ItemSeparatorComponent={Line}
-                />
-            );
+                <View style={[styles.listView]}>
+                    <SectionList
+                        renderSectionHeader={(info) => {
+                            return (<MKNewsSection section={info.section}/>)
+                        }}
+                        style={[styles.listView]}
+                        sections={this.state.sections}
+                        ListHeaderComponent={(<MKSwiper stories={this.state.rotations}/>)}
+                        renderItem={this.renderItem.bind(this)}
+                        keyExtractor={(item) => {
+                            return (item.id + '')
+                        }}
+                        onEndReachedThreshold={0.1}
+                        onEndReached={this.getMoreNews.bind(this)}
+                        onRefresh={this.getNewestNews.bind(this)}
+                        refreshing={this.state.refreshing}
+                        stickySectionHeadersEnabled={false}
+                        ItemSeparatorComponent={Line}
+                    />
+                </View>
 
+            );
         }else {
-            return super.render(
-                <MKPlaceholderView isLoading={this.state.isLoading} reloadEvent={this.getNewestNews.bind(this)} />
-            );
+            return super.render(null);
         }
-
     };
 
 }
@@ -140,5 +140,4 @@ const styles = StyleSheet.create({
     listView: {
         flex:1,
     },
-
 });
