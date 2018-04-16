@@ -84,7 +84,6 @@ export default class MKHomePage extends MKBasePage {
                 lastDate: responseData.date,
             })
         }).catch((error) => {
-
             console.log(error);
         });
     };
@@ -101,9 +100,12 @@ export default class MKHomePage extends MKBasePage {
         );
     };
 
+    // placeholderOnRefresh() {
+    //     console.log('xietao3 reload111');
+    // }
+
 
     render () {
-        this.setPlaceholderView(this.getNewestNews.bind(this));
 
         if (this.state.sections.length > 0) {
             return super.render(

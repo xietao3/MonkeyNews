@@ -43,8 +43,15 @@ export default class MKBasePage extends Component {
         return this.placeholderView;
     };
 
+    placeholderOnRefresh() {
+        console.log(this+'请在子类重写刷新函数');
+    }
 
     render(page) {
+        // 如果子类没有实现 placeholderView 则自动加入
+        if (!this.placeholderView){this.noSetPlaceholderView = true}
+        if (this.noSetPlaceholderView) {this.setPlaceholderView(this.placeholderOnRefresh.bind(this))}
+
         return (
             <SafeAreaView style={[commonStyles.container, {backgroundColor:colors.pageBackgroundColor}]}>
                 {this.placeholderView}

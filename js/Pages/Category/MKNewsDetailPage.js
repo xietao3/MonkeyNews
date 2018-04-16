@@ -34,12 +34,11 @@ export default class MKNewsDetailPage extends MKBasePage {
     }
 
     componentDidMount() {
-        // this.startLoading();
+        this.startLoading();
     };
 
 
     render() {
-        this.setPlaceholderView();
 
         return super.render(
 
