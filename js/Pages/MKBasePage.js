@@ -24,6 +24,9 @@ export default class MKBasePage extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            isLoading:0
+        }
     };
 
     componentWillUnmount(){
