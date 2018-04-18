@@ -26,6 +26,12 @@ export default class MKBasePage extends Component {
         super(props);
     };
 
+    componentWillUnmount(){
+        this.setState = ()=>{
+            return null;
+        };
+    }
+
     startLoading() {
         this.setState({isLoading: 1});
     };

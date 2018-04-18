@@ -13,6 +13,7 @@ import React, {Component} from 'react';
 import Swiper from 'react-native-swiper';
 import {
     View,
+    TouchableWithoutFeedback,
     Dimensions,
     Text,
 } from 'react-native';
@@ -23,14 +24,24 @@ const { screenWidth } = Dimensions.get('window');
 
 const Slide = props => {
     return (
-        <View style={styles.slide}>
-            <MKImage
-                style={styles.image}
-                source={{uri: props.story.image}}
-            />
-            <Text style={styles.titleView}>{props.story.title}</Text>
+        <TouchableWithoutFeedback
+            style={styles.button}
+            onPress={()=>{
+                props.onPress(props.story.id);
+            }}
+        >
 
-        </View>
+            <View style={styles.slide} >
+                <MKImage
+                    style={styles.image}
+                    source={{uri: props.story.image}}
+                />
+                <Text style={styles.titleView}>{props.story.title}</Text>
+
+
+            </View>
+
+        </TouchableWithoutFeedback>
     )
 };
 
@@ -58,6 +69,7 @@ export default class extends Component {
                             story={story}
                             i={i}
                             key={i}
+                            onPress = {this.props.onPress}
                         />)
                     }
                 </Swiper>
@@ -118,6 +130,13 @@ const styles = {
         textShadowRadius:2.0,
         fontSize: 17,
         fontWeight: 'bold',
+    },
+    button: {
+        position: 'absolute',
+        left:0,
+        bottom:0,
+        right:0,
+        top:0,
     }
 
 };

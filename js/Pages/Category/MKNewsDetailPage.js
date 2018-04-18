@@ -11,49 +11,81 @@
 
 import React, {Component} from 'react';
 import {
+    WebView,
     View,
     Button,
-    Text
 } from 'react-native';
 import MKBasePage from '../MKBasePage';
-import {colors} from "../../Styles/commonStyles";
+import MKServices from '../../Services/MKServices';
 
 export default class MKNewsDetailPage extends MKBasePage {
 
-    static navigationOptions = {
-        headerTitle: '新闻详情',
+    static navigationOptions = ({ navigation }) => {
+        const { params } = navigation.state;
+
+        return {
+            headerTitle: params.title ? params.title : '新闻详情',
+            tabBarVisible: false,
+        }
     };
+
+
 
     constructor(props) {
         super(props);
         const { params } = this.props.navigation.state;
-        const itemId = params ? params.itemId : '0';
+        const newsId = params ? params.newsId : '0';
         this.state= {
-            itemId:itemId
-        }
+            newsId:newsId,
+            detail:null,
+        };
     }
 
     componentDidMount() {
+        this.getNewsDetail();
+    };
+
+    componentWillUnmount(){
+        this.setState = ()=>{
+            return null;
+        };
+    }
+
+    getNewsDetail() {
         this.startLoading();
+
+        MKServices.requestNewsDetail(this.state.newsId).then((responseData) => {
+            console.log(responseData);
+            this.setState ({detail:responseData});
+            this.props.navigation.setParams({title: this.state.detail.title});
+            this.stopLoading();
+
+        }).catch((error) => {
+            this.requestFailure();
+            console.log(error);
+        });
     };
 
 
     render() {
 
-        return super.render(
+        if (this.state.detail !== null) {
+            const script = 'document.getElementsByClassName(\'header-for-mobile\')[0].style.display="none";';
 
-            <View>
-                <Text style={[colors.black,{marginTop:100}]}> {this.state.itemId} </Text>
-
-                <Button
-                    title='Go back'
-                    onPress={() => this.props.navigation.goBack()}
-                />
-            </View>
-
-        );
-
+            return super.render(
+                <View style={{flex:1,}}>
+                    <WebView
+                        ref={(webview) => { this.webview = webview; }}
+                        source= {{uri:this.state.detail.share_url}}
+                        injectedJavaScript={script}
+                    />
+                </View>
+            )
+        }else {
+            return super.render(null);
+        }
     }
 
 
 }
+

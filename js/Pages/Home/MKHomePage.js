@@ -44,6 +44,12 @@ export default class MKHomePage extends MKBasePage {
         this.getNewestNews();
     };
 
+    componentWillUnmount(){
+        this.setState = ()=>{
+            return null;
+        };
+    }
+
     getNewestNews() {
         this.startLoading();
 
@@ -93,7 +99,7 @@ export default class MKHomePage extends MKBasePage {
             <ListItem
                 id={item.id}
                 onPressItem={() => {
-                    this.props.navigation.navigate('newsDetail')
+                    this.props.navigation.navigate('newsDetail',{newsId:item.id})
                 }}
                 item={item}
             />
@@ -116,11 +122,14 @@ export default class MKHomePage extends MKBasePage {
                         }}
                         style={[styles.listView]}
                         sections={this.state.sections}
-                        ListHeaderComponent={(<MKSwiper stories={this.state.rotations}/>)}
+                        ListHeaderComponent={(<MKSwiper
+                            stories={this.state.rotations}
+                            onPress={(id)=>{
+                                this.props.navigation.navigate('newsDetail',{newsId:id})
+                            }}
+                        />)}
                         renderItem={this.renderItem.bind(this)}
-                        keyExtractor={(item) => {
-                            return (item.id + '')
-                        }}
+                        keyExtractor={(item) => {return (item.id + '')}}
                         onEndReachedThreshold={0.1}
                         onEndReached={this.getMoreNews.bind(this)}
                         onRefresh={this.getNewestNews.bind(this)}

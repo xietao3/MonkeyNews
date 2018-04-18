@@ -20,6 +20,12 @@ export default class MKServices {
     static requestBeforeNews(date) {
         return MKBaseServices.request(APIConstants.news_list_url+date);
     }
+
+    static requestNewsDetail(id) {
+        return MKBaseServices.request(APIConstants.news_detail_url+id);
+    }
+
+
 }
 
 
