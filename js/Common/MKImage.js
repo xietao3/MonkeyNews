@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     image:{
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor:'#bfbfbf',
     }
 });
 

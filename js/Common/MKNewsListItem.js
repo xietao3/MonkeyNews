@@ -15,14 +15,11 @@ import {
     Text,
     TouchableWithoutFeedback,
 } from 'react-native';
-import MKImage from './MKImage'
+import MKImage from './MKImage';
 
 export default class MKNewsListItem extends Component {
     constructor (props) {
         super(props);
-        this.state = {
-            imageLoading:true
-        }
     }
 
     _clickItem = () => {
@@ -77,6 +74,5 @@ const styles = StyleSheet.create({
         marginLeft:10,
         width:70,
         height:50,
-        backgroundColor:'#bfbfbf',
     },
 });

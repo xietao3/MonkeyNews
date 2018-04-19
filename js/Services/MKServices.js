@@ -25,6 +25,10 @@ export default class MKServices {
         return MKBaseServices.request(APIConstants.news_detail_url+id);
     }
 
+    static requestThemeList(id) {
+        return MKBaseServices.request(APIConstants.theme_list_url);
+    }
+
 
 }
 

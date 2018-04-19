@@ -12,8 +12,8 @@
 import React, {Component} from 'react';
 import {
     WebView,
+    StyleSheet,
     View,
-    Button,
 } from 'react-native';
 import MKBasePage from '../MKBasePage';
 import MKServices from '../../Services/MKServices';
@@ -55,7 +55,6 @@ export default class MKNewsDetailPage extends MKBasePage {
         this.startLoading();
 
         MKServices.requestNewsDetail(this.state.newsId).then((responseData) => {
-            console.log(responseData);
             this.setState ({detail:responseData});
             this.props.navigation.setParams({title: this.state.detail.title});
             this.stopLoading();
@@ -73,9 +72,8 @@ export default class MKNewsDetailPage extends MKBasePage {
             const script = 'document.getElementsByClassName(\'header-for-mobile\')[0].style.display="none";';
 
             return super.render(
-                <View style={{flex:1,}}>
+                <View style={styles.contianer}>
                     <WebView
-                        ref={(webview) => { this.webview = webview; }}
                         source= {{uri:this.state.detail.share_url}}
                         injectedJavaScript={script}
                     />
@@ -85,7 +83,10 @@ export default class MKNewsDetailPage extends MKBasePage {
             return super.render(null);
         }
     }
-
-
 }
 
+const styles = StyleSheet.create({
+    contianer: {
+        flex:1,
+    },
+});

@@ -13,7 +13,7 @@ import {StackNavigator} from 'react-navigation'
 import MKHomePage from './Home/MKHomePage'
 import MKCategoryPage from './Category/MKCategoryPage'
 import MKUserCenterPage from './UserCenter/MKUserCenterPage'
-import MKNewsDetailPage from './Category/MKNewsDetailPage'
+import MKNewsDetailPage from './Home/MKNewsDetailPage'
 
 /**
  *页面列表
