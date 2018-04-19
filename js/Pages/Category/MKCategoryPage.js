@@ -45,10 +45,8 @@ export default class MKCategoryPage extends MKBasePage {
         this.startLoading();
 
         MKServices.requestThemeList().then((responseData) => {
-            console.log(responseData);
             this.setState ({themeList: responseData.others});
             this.stopLoading();
-
         }).catch((error) => {
             this.requestFailure();
             console.log(error);
@@ -60,8 +58,7 @@ export default class MKCategoryPage extends MKBasePage {
             <ThemeListItem
                 id={item.id}
                 onPress={() => {
-                    alert('item'+item.name);
-                    // this.props.navigation.navigate('newsDetail',{newsId:item.id})
+                    this.props.navigation.navigate('themeDetail',{theme:item})
                 }}
                 item={item}
             />
@@ -78,7 +75,6 @@ export default class MKCategoryPage extends MKBasePage {
                 <FlatList
                     style={[styles.listView]}
                     data={this.state.themeList}
-                    extraData={this.state}
                     keyExtractor={(item) => {return (item.id + '')}}
                     renderItem={this.renderItem.bind(this)}
                 />

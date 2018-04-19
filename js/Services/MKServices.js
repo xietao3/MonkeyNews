@@ -25,8 +25,16 @@ export default class MKServices {
         return MKBaseServices.request(APIConstants.news_detail_url+id);
     }
 
-    static requestThemeList(id) {
+    static requestThemeList() {
         return MKBaseServices.request(APIConstants.theme_list_url);
+    }
+
+    static requestThemeDetail(id, lastId) {
+        if (lastId !== null) {
+            return MKBaseServices.request(APIConstants.theme_url+id+'/before/'+lastId);
+        }else {
+            return MKBaseServices.request(APIConstants.theme_url+id);
+        }
     }
 
 
@@ -46,7 +54,7 @@ class MKBaseServices {
                 })
                 .catch((error) => {
                     console.error(error);
-                    resolve(null);
+                    reject(error);
                 });
         });
     }

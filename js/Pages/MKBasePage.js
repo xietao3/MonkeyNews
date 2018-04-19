@@ -35,12 +35,18 @@ export default class MKBasePage extends Component {
         };
     }
 
-    startLoading() {
-        this.setState({isLoading: 1});
+    startLoading(state) {
+        this.setState({
+            ...state,
+            isLoading: 1
+        });
     };
 
-    stopLoading() {
-        this.setState({isLoading: 0});
+    stopLoading(state) {
+        this.setState({
+            ...state,
+            isLoading: 0
+        });
     };
 
     requestFailure() {

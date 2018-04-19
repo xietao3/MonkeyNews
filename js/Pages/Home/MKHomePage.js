@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 import MKBasePage from '../MKBasePage';
-import ListItem from '../../Common/MKNewsListItem';
+import NewsListItem from '../../Common/MKNewsListItem';
 import {Line} from '../../Common/MKCommonComponents';
 import MKNewsSection from '../../Common/MKNewsSection';
 import MKServices from '../../Services/MKServices';
@@ -98,7 +98,7 @@ export default class MKHomePage extends MKBasePage {
 
     renderItem ({item}) {
         return (
-            <ListItem
+            <NewsListItem
                 id={item.id}
                 onPressItem={() => {
                     this.props.navigation.navigate('newsDetail',{newsId:item.id})

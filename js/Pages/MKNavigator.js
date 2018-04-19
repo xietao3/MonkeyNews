@@ -9,11 +9,12 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {StackNavigator} from 'react-navigation'
-import MKHomePage from './Home/MKHomePage'
-import MKCategoryPage from './Category/MKCategoryPage'
-import MKUserCenterPage from './UserCenter/MKUserCenterPage'
-import MKNewsDetailPage from './Home/MKNewsDetailPage'
+import {StackNavigator} from 'react-navigation';
+import MKHomePage from './Home/MKHomePage';
+import MKCategoryPage from './Category/MKCategoryPage';
+import MKUserCenterPage from './UserCenter/MKUserCenterPage';
+import MKNewsDetailPage from './Home/MKNewsDetailPage';
+import MKThemeDetailPage from './Category/MKThemeDetailPage';
 
 /**
  *页面列表
@@ -23,6 +24,7 @@ const PageList = {
     newsDetail: { screen: MKNewsDetailPage },
     category: { screen: MKCategoryPage },
     userCenter: { screen: MKUserCenterPage },
+    themeDetail: {screen: MKThemeDetailPage}
 };
 
 /**

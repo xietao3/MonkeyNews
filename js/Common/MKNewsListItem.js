@@ -27,6 +27,8 @@ export default class MKNewsListItem extends Component {
     };
 
     render() {
+        let imageView = this.props.item.images && this.props.item.images.length>0? <MKImage source={{uri:this.props.item.images[0]}} style={styles.image}/>: null;
+
         return (
 
             <TouchableWithoutFeedback
@@ -38,11 +40,8 @@ export default class MKNewsListItem extends Component {
                         <Text style={styles.title}>
                             {this.props.item.title}
                         </Text>
+                        {imageView}
 
-                        <MKImage
-                            source={{uri:this.props.item.images[0]}}
-                            style={styles.image}
-                        />
                     </View>
                 </View>
 
