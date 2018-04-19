@@ -45,8 +45,9 @@ export default class MKCategoryPage extends MKBasePage {
         this.startLoading();
 
         MKServices.requestThemeList().then((responseData) => {
-            this.setState ({themeList: responseData.others});
-            this.stopLoading();
+            this.stopLoading({
+                themeList: responseData.others
+            });
         }).catch((error) => {
             this.requestFailure();
             console.log(error);

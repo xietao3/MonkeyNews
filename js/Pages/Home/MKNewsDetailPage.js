@@ -55,9 +55,8 @@ export default class MKNewsDetailPage extends MKBasePage {
         this.startLoading();
 
         MKServices.requestNewsDetail(this.state.newsId).then((responseData) => {
-            this.setState ({detail:responseData});
+            this.stopLoading({detail:responseData});
             this.props.navigation.setParams({title: this.state.detail.title});
-            this.stopLoading();
 
         }).catch((error) => {
             this.requestFailure();

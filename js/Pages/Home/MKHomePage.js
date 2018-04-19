@@ -53,9 +53,7 @@ export default class MKHomePage extends MKBasePage {
     getNewestNews() {
         console.log('123');
 
-        this.startLoading();
-
-        this.setState({
+        this.startLoading({
             refreshing: true,
         });
 
@@ -64,13 +62,12 @@ export default class MKHomePage extends MKBasePage {
                 key:100,
                 data:responseData.stories
             }];
-            this.setState({
+            this.stopLoading({
                 sections: tempData,
                 rotations: responseData.top_stories,
                 lastDate: responseData.date,
                 refreshing: false,
             });
-            this.stopLoading();
 
         }).catch((error) => {
             this.requestFailure();
