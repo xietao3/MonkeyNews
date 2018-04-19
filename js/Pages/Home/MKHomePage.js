@@ -51,6 +51,8 @@ export default class MKHomePage extends MKBasePage {
     }
 
     getNewestNews() {
+        console.log('123');
+
         this.startLoading();
 
         this.setState({
@@ -106,9 +108,9 @@ export default class MKHomePage extends MKBasePage {
         );
     };
 
-    // placeholderOnRefresh() {
-    //     console.log('xietao3 reload111');
-    // }
+    placeholderOnRefresh() {
+        this.getNewestNews();
+    }
 
 
     render () {

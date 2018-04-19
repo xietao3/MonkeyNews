@@ -24,7 +24,7 @@ export default class MKThemeListItem extends Component {
     }
 
     _clickItem = () => {
-        this.props.onPress(this.props.title);
+        this.props.onPress();
     };
 
     render() {
@@ -45,7 +45,6 @@ export default class MKThemeListItem extends Component {
                     <Text style={styles.description}>
                         {this.props.item.description}
                     </Text>
-
 
                 </View>
 

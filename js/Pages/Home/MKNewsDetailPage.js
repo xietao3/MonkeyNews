@@ -65,6 +65,9 @@ export default class MKNewsDetailPage extends MKBasePage {
         });
     };
 
+    placeholderOnRefresh() {
+        this.getNewsDetail();
+    }
 
     render() {
 

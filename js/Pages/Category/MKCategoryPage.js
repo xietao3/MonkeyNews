@@ -60,7 +60,7 @@ export default class MKCategoryPage extends MKBasePage {
             <ThemeListItem
                 id={item.id}
                 onPress={() => {
-                    alert('item');
+                    alert('item'+item.name);
                     // this.props.navigation.navigate('newsDetail',{newsId:item.id})
                 }}
                 item={item}
@@ -68,18 +68,24 @@ export default class MKCategoryPage extends MKBasePage {
         );
     }
 
+    placeholderOnRefresh() {
+        this.getThemeList();
+    }
+
     render() {
-
-        return super.render(
-            <FlatList
-                style={[styles.listView]}
-                data={this.state.themeList}
-                extraData={this.state}
-                keyExtractor={(item) => {return (item.id + '')}}
-                renderItem={this.renderItem.bind(this)}
-            />
-        );
-
+        if (this.state.themeList.length > 0) {
+            return super.render(
+                <FlatList
+                    style={[styles.listView]}
+                    data={this.state.themeList}
+                    extraData={this.state}
+                    keyExtractor={(item) => {return (item.id + '')}}
+                    renderItem={this.renderItem.bind(this)}
+                />
+            );
+        }else {
+            return super.render(null);
+        }
     };
 }
 
