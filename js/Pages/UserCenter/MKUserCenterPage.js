@@ -11,21 +11,20 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    View,
-    Text
-} from 'react-native'
-
-import MKBasePage from '../MKBasePage'
-import commonStyles from '../../Styles/commonStyles'
+    ScrollView,
+} from 'react-native';
+import MKBasePage from '../MKBasePage';
+import {MKUserCenterHeaderView,
+    MKUserCenterWalletView,
+    MKUserCenterOrderView,
+    MKUserCenterChargeView,
+    MKUserCenterToolView,
+} from '../../Common/MKUserCenterConponents'
 
 export default class MKUserCenterPage extends MKBasePage {
 
-    static navigationOptions = ({ navigation }) => {
-        const { params } = navigation.state;
-
-        return {
-            headerTitle: '用户中心',
-        };
+    static navigationOptions = {
+        headerTitle: '用户中心',
     };
 
     constructor (props) {
@@ -34,7 +33,14 @@ export default class MKUserCenterPage extends MKBasePage {
 
     render () {
         return super.render(
-            <Text style={[{color:"black"},{marginTop:100}]}>个人中心页面 </Text>
+            <ScrollView style={styles.scrollView}>
+                // 顶部用户信息
+                <MKUserCenterHeaderView />
+                <MKUserCenterWalletView />
+                <MKUserCenterOrderView />
+                <MKUserCenterChargeView />
+                <MKUserCenterToolView />
+            </ScrollView>
 
         );
     }
@@ -42,5 +48,8 @@ export default class MKUserCenterPage extends MKBasePage {
 }
 
 const styles = StyleSheet.create({
-
+    scrollView: {
+        flex:1,
+        flexDirection:'column',
+    },
 });
