@@ -1,3 +1,4 @@
 <resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">b9f80d26-cf98-4788-ac7f-3eb8a63848fc</string>
     <string name="app_name">MonkeyNews</string>
 </resources>
